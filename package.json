@@ -4,7 +4,7 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron --debug=5858 main.js"
+    "start": "webpack && electron --debug=5858 main.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,21 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0"
+    "electron-prebuilt": "^0.36.0",
+    "html-webpack-plugin": "^2.7.2",
+    "typescript": "^1.7.5",
+    "webpack": "^1.12.12"
   },
   "dependencies": {
-    "request": "^2.67.0"
+    "request": "^2.67.0",
+    "xhr": "^2.2.0"
+  },
+  "jspm": {
+    "dependencies": {
+      "request": "npm:request@^2.67.0"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
   }
 }
