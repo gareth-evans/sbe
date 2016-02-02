@@ -2,6 +2,7 @@ var electron = require('electron');
 var request = require('request');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
+var ipc = electron.ipcRenderer;
 var Authentication = (function () {
     function Authentication(authWindow) {
         this.client_id = '1950a258-227b-4e31-a9cf-717495945fc2';
@@ -58,7 +59,8 @@ var Authentication = (function () {
                 redirect_uri: this.redirect_uri
             }
         }, function (error, response, body) {
-            console.log(body);
+            ipc.send('auth-success', body);
+            //console.log(body);
         });
     };
     return Authentication;

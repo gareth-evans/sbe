@@ -3,6 +3,7 @@ import request = require('request');
 
 const app : GitHubElectron.App = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const ipc = electron.ipcRenderer;
 
 export class Authentication {   
     private client_id : string = '1950a258-227b-4e31-a9cf-717495945fc2';
@@ -70,7 +71,10 @@ export class Authentication {
                 redirect_uri: this.redirect_uri
         }
         }, function(error, response, body) {
-             console.log(body);
+            
+            ipc.send('auth-success', body);
+            
+             //console.log(body);
         });
     }
 }

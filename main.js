@@ -1,6 +1,7 @@
 const electron = require('electron');
 const request = require('request');
-const authentication = require('./authentication')
+const authentication = require('./authentication');
+const ipc = electron.ipcMain;
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -14,9 +15,15 @@ function createWindow () {
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
     var authWindow = new BrowserWindow({ width: 400, height: 600, show: false, 'node-integration': false, 'web-security': false });
+    authWindow.setMenu(null);
+    
     var auth = new authentication.Authentication(authWindow);
 
-    auth.Authenticate(function (resp) {
-        authWindow.destroy();
-    });
+    auth.Authenticate(function(resp) { console.log(resp); });
 }
+
+ipc.on('auth-success', function (x) {
+    console.log(x);
+    
+    console.log('main got auth sucess!!');
+});
